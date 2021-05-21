@@ -34,5 +34,10 @@ int main()
   int PlayerGuessSum = PlayerGuess1 + PlayerGuess2 + PlayerGuess3;
   int PlayerGuessProduct = PlayerGuess1 * PlayerGuess2 * PlayerGuess3;
 
+  if (PlayerGuessSum == CodeSum & CodeProduct == PlayerGuessProduct)
+  {
+    std::cout << "You win!!!" << std::endl;
+  }
+
   return 0;
 }
