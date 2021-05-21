@@ -21,11 +21,16 @@ int main()
   std::cout << std::endl << "There are 3 numbers on the lock. " << std::endl;
   std::cout << "the sum of the 3 numbers is: " << CodeSum << std::endl;
   std::cout << "the product of the 3 numbers is: " << CodeProduct << std::endl;
-  std::cout << "Please enter the code..." << CodeProduct << std::endl;
+  std::cout << "Please enter the code..." << std::endl;
 
-  int PlayerGuess;
-  std::cin >> PlayerGuess;
-  std::cout << "You entered: " << PlayerGuess;
+  int PlayerGuess1, PlayerGuess2, PlayerGuess3;
+  std::cout << "Enter the first number..." << std::endl;
+  std::cin >> PlayerGuess1;
+  std::cout << "Enter the second number..." << std::endl;
+  std::cin >> PlayerGuess2;
+  std::cout << "Enter the third number..." << std::endl;
+  std::cin >> PlayerGuess3;
+  std::cout << "You entered: " << PlayerGuess1 << ", " << PlayerGuess2 << ", and " << PlayerGuess3;
 
   return 0;
 }
