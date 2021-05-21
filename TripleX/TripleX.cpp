@@ -11,7 +11,8 @@ int main()
   int b = 3;
   int c = 2;
 
-  std::cout << "a + b + c = ";
-  std::cout << a + b + c;
+  int sum = a + b + c;
+  std::cout << "the sum of a, b, & c is ";
+  std::cout << sum;
   return 0;
 }
