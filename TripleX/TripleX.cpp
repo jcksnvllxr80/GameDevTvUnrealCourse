@@ -10,9 +10,9 @@ int main()
   int c = 2;
 
   int sum = a + b + c;
-  std::cout << "the sum of a, b, and c is " << sum << std::endl;
-
   int product = a * b * c;
+
+  std::cout << "the sum of a, b, and c is " << sum << std::endl;
   std::cout << "the product of a, b, and c is " << product << std::endl;
   return 0;
 }
