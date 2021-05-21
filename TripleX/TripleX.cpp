@@ -36,7 +36,11 @@ int main()
 
   if (PlayerGuessSum == CodeSum & CodeProduct == PlayerGuessProduct)
   {
-    std::cout << "You win!!!" << std::endl;
+    std::cout << "You got into the North Mountain Castle and found Elsa!!!" << std::endl;
+  }
+  else
+  {
+    std::cout << "You did not get in. Please try again." << std::endl;
   }
 
   return 0;
