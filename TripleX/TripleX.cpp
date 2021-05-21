@@ -7,7 +7,10 @@ int main()
   std::cout << "You are Ana trying to break into the North Mountain Castle where Elsa is hiding..." << std::endl;
   std::cout << "You need to get the numbers correct in order to continue..." << std::endl;
 
-  // declare som e variables
+  /*
+    declare some variables
+    this is a multiline comment
+  */
   const int a = 4;
   const int b = 3;
   const int c = 2;
