@@ -21,8 +21,11 @@ int main()
   std::cout << std::endl << "There are 3 numbers on the lock. " << std::endl;
   std::cout << "the sum of the 3 numbers is: " << CodeSum << std::endl;
   std::cout << "the product of the 3 numbers is: " << CodeProduct << std::endl;
+  std::cout << "Please enter the code..." << CodeProduct << std::endl;
 
   int PlayerGuess;
+  std::cin >> PlayerGuess;
+  std::cout << "You entered: " << PlayerGuess;
 
   return 0;
 }
