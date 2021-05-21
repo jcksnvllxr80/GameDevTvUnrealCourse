@@ -74,7 +74,7 @@ void PlayLevel(int Level)
 }
 
 
-int PlayGame()
+void PlayGame()
 {
   for (int Level = 0; Level <= 10; Level++)
   {
