@@ -12,7 +12,13 @@ int main()
   int c = 2;
 
   int sum = a + b + c;
-  std::cout << "the sum of a, b, & c is ";
+  std::cout << "the sum of a, b, and c is ";
   std::cout << sum;
+  std::cout << std::endl;
+
+  int product = a * b * c;
+  std::cout << "the product of a, b, and c is ";
+  std::cout << product;
+  std::cout << std::endl;
   return 0;
 }
