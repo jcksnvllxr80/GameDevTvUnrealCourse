@@ -30,7 +30,9 @@ int main()
   std::cin >> PlayerGuess2;
   std::cout << "Enter the third number..." << std::endl;
   std::cin >> PlayerGuess3;
-  std::cout << "You entered: " << PlayerGuess1 << ", " << PlayerGuess2 << ", and " << PlayerGuess3;
+
+  int PlayerGuessSum = PlayerGuess1 + PlayerGuess2 + PlayerGuess3;
+  int PlayerGuessProduct = PlayerGuess1 * PlayerGuess2 * PlayerGuess3;
 
   return 0;
 }
