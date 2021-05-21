@@ -8,6 +8,10 @@ int main()
   std::cout << std::endl;
 
   int a = 4;
-  std::cout << a;
+  int b = 3;
+  int c = 2;
+
+  std::cout << "a + b + c = ";
+  std::cout << a + b + c;
   return 0;
 }
