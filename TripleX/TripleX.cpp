@@ -8,7 +8,7 @@ void PrintIntroduction(int Level)
 }
 
 
-auto GenerateCodeNumbers()
+auto GenerateCodeNumbers(int Difficulty)
 {
   struct retVals
   { // Declare a local structure
@@ -18,9 +18,9 @@ auto GenerateCodeNumbers()
     declare some variables
     this is a multiline comment
   */
-  const int CodeLockNum1 = 4;
-  const int CodeLockNum2 = 3;
-  const int CodeLockNum3 = 2;
+  const int CodeLockNum1 = rand() % (Difficulty + 2) + 1;
+  const int CodeLockNum2 = rand() % (Difficulty + 2) + 1;
+  const int CodeLockNum3 = rand() % (Difficulty + 2) + 1;
 
   return retVals{CodeLockNum1 + CodeLockNum2 + CodeLockNum3, CodeLockNum1 * CodeLockNum2 * CodeLockNum3};
 }
@@ -46,7 +46,7 @@ bool TakeInputAndCompare(int CodeSum, int CodeProduct, int *Lives)
   // check if players numbers are correct
   if (PlayerGuessSum == CodeSum & PlayerGuessProduct == CodeProduct)
   {
-    std::cout << "You got into the North Mountain Castle and found Elsa!!!\n";
+    std::cout << "You got into the North Mountain Castle and found Elsa!!!\n\n";
     return true;
   }
   else
@@ -70,7 +70,7 @@ bool PlayLevel(int Level)
   int Lives = 3;
   bool bPlayerWon = false;
   PrintIntroduction(Level);
-  auto [retval1, retval2] = GenerateCodeNumbers();
+  auto [retval1, retval2] = GenerateCodeNumbers(Level);
   const int CodeSum = retval1;
   const int CodeProduct = retval2;
   PrintHints(CodeSum, CodeProduct);
