@@ -40,6 +40,8 @@ bool TakeInputAndCompare(int CodeSum, int CodeProduct, int *Lives)
   int PlayerGuess1, PlayerGuess2, PlayerGuess3;
   std::cout << "Please enter the numbers, separated by a space...\n";
   std::cin >> PlayerGuess1 >> PlayerGuess2 >> PlayerGuess3;
+  std::cin.clear();
+  std::cin.ignore();
 
   int PlayerGuessSum = PlayerGuess1 + PlayerGuess2 + PlayerGuess3;
   int PlayerGuessProduct = PlayerGuess1 * PlayerGuess2 * PlayerGuess3;
@@ -85,7 +87,7 @@ bool PlayLevel(int Level)
 
 
 void PlayGame()
-{
+{ 
   int HasMoreLives;
   int Level = 0;
   while (Level <= 10 && HasMoreLives)
