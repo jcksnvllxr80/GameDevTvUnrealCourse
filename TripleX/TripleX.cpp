@@ -86,11 +86,11 @@ bool PlayLevel(int Level)
 
 void PlayGame()
 { 
-  int HasMoreLives;
+  bool HasMoreLives;
   int Level = 0;
-  while (Level <= 10 && HasMoreLives)
+  while (Level < 10 && HasMoreLives)
   {
-    HasMoreLives = PlayLevel(Level++);
+    HasMoreLives = PlayLevel(++Level);
   }
   if (HasMoreLives)
   {
