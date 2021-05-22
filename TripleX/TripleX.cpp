@@ -85,10 +85,11 @@ bool PlayLevel(int Level)
 
 
 void PlayGame()
-{ 
+{ // loop the game while player has lives and all levels are not complete
   bool HasMoreLives = true;
   int Level = 0;
-  while (Level < 10 && HasMoreLives)
+  const int MaxLevel = 5;
+  while (Level < MaxLevel && HasMoreLives)
   {
     HasMoreLives = PlayLevel(++Level);
   }
