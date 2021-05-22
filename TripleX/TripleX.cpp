@@ -36,12 +36,9 @@ void PrintHints(int CodeSum, int CodeProduct)
 
 bool TakeInputAndCompare(int CodeSum, int CodeProduct, int *Lives)
 { // take players input
-  bool Winner;
   int PlayerGuess1, PlayerGuess2, PlayerGuess3;
   std::cout << "Please enter the numbers, separated by a space...\n";
   std::cin >> PlayerGuess1 >> PlayerGuess2 >> PlayerGuess3;
-  std::cin.clear();
-  std::cin.ignore();
 
   int PlayerGuessSum = PlayerGuess1 + PlayerGuess2 + PlayerGuess3;
   int PlayerGuessProduct = PlayerGuess1 * PlayerGuess2 * PlayerGuess3;
@@ -49,12 +46,11 @@ bool TakeInputAndCompare(int CodeSum, int CodeProduct, int *Lives)
   // check if players numbers are correct
   if (PlayerGuessSum == CodeSum & PlayerGuessProduct == CodeProduct)
   {
-    Winner = true;
     std::cout << "You got into the North Mountain Castle and found Elsa!!!\n";
+    return true;
   }
   else
   {
-    Winner = false;
     std::cout << "You did not get in to the North Mountain Castle. ";
     if (--*Lives > 0)
     {
@@ -64,23 +60,25 @@ bool TakeInputAndCompare(int CodeSum, int CodeProduct, int *Lives)
     {
       std::cout << "You ran out of Lives :( Please start over and try again.\n";
     }
+    return false;
   }
-  return Winner;
 }
 
 
 bool PlayLevel(int Level)
 {
   int Lives = 3;
-  bool PlayerWon = false;
+  bool bPlayerWon = false;
   PrintIntroduction(Level);
   auto [retval1, retval2] = GenerateCodeNumbers();
   const int CodeSum = retval1;
   const int CodeProduct = retval2;
   PrintHints(CodeSum, CodeProduct);
-  while (!PlayerWon && Lives > 0)
+  while (!bPlayerWon && Lives > 0)
   {
-    PlayerWon = TakeInputAndCompare(CodeSum, CodeProduct, &Lives);
+    bPlayerWon = TakeInputAndCompare(CodeSum, CodeProduct, &Lives);
+    std::cin.clear();
+    std::cin.ignore();
   }
   return Lives > 0;
 }
