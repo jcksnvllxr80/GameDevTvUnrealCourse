@@ -34,7 +34,7 @@ void PrintHints(int CodeSum, int CodeProduct)
 }
 
 
-bool TakeInputAndCompare(int CodeSum, int CodeProduct, int Lives)
+bool TakeInputAndCompare(int CodeSum, int CodeProduct, int *Lives)
 { // take players input
   bool Winner;
   int PlayerGuess1, PlayerGuess2, PlayerGuess3;
@@ -54,9 +54,9 @@ bool TakeInputAndCompare(int CodeSum, int CodeProduct, int Lives)
   {
     Winner = false;
     std::cout << "You did not get in to the North Mountain Castle. ";
-    if (--Lives > 0)
+    if (--*Lives > 0)
     {
-      std::cout << "You have " << Lives << " lives. Please try again.\n";
+      std::cout << "You have " << *Lives << " lives left. Please try again.\n";
     }
     else
     {
@@ -67,30 +67,35 @@ bool TakeInputAndCompare(int CodeSum, int CodeProduct, int Lives)
 }
 
 
-void PlayLevel(int Level, int Lives)
+bool PlayLevel(int Level)
 {
+  int Lives = 3;
   bool PlayerWon = false;
   PrintIntroduction(Level);
   auto [retval1, retval2] = GenerateCodeNumbers();
   const int CodeSum = retval1;
   const int CodeProduct = retval2;
+  PrintHints(CodeSum, CodeProduct);
   while (!PlayerWon && Lives > 0)
   {
-    PrintHints(CodeSum, CodeProduct);
-    PlayerWon = TakeInputAndCompare(CodeSum, CodeProduct, Lives);
+    PlayerWon = TakeInputAndCompare(CodeSum, CodeProduct, &Lives);
   }
+  return Lives > 0;
 }
 
 
 void PlayGame()
 {
-  int Lives = 3;
+  int HasMoreLives;
   int Level = 0;
-  while (Level <= 10 && Lives > 0)
+  while (Level <= 10 && HasMoreLives)
   {
-    PlayLevel(Level++, Lives);
+    HasMoreLives = PlayLevel(Level++);
   }
-  std::cout << "You finished all the levels! Good job!\n";
+  if (HasMoreLives)
+  {
+    std::cout << "You finished all the levels! Good job!\n";
+  }
 }
 
 
