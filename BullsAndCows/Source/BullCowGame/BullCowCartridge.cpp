@@ -4,7 +4,7 @@
 void UBullCowCartridge::BeginPlay() // When the game starts
 {
     Super::BeginPlay();
-    HiddenWord = TEXT("uncopyrightable");  // set the HiddenWord
+    SetupGame();
     PrintLine(TEXT("Mooooo! Welcome to the bull & cow game!"));
     PrintLine(TEXT("Guess the 16 letter isogram..."));  // Magic Number Remove
     PrintLine(TEXT("Use TAB to access the terminal and then enter some text and press ENTER!"));
@@ -24,4 +24,10 @@ void UBullCowCartridge::OnInput(const FString& Input)  // When the player hits e
         PrintLine(TEXT("Wrong! You lose!"));
         // remove a life
     }
+}
+
+void UBullCowCartridge::SetupGame()
+{
+    HiddenWord = TEXT("uncopyrightable");
+    Lives = HiddenWord.Len();
 }
