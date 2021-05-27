@@ -28,9 +28,15 @@ void UBullCowCartridge::OnInput(const FString& Input)  // When the player hits e
             {
                 PrintLine(TEXT("You entered %i characters."), Input.Len());
             }
-            PrintLine(TEXT("Wrong! You lose!"));
-            // remove a life
-            EndGame();
+            PrintLine(TEXT("Wrong! You lost a life!"));
+            if (--Lives > 0)
+            {
+                PrintLine(TEXT("Guess the %i letter isogram with %i lives."), HiddenWord.Len(), Lives);
+            }
+            else
+            {
+                EndGame();
+            }
         }
     }
 }
@@ -47,7 +53,7 @@ void UBullCowCartridge::DisplayStartInfo()
 {
     PrintLine(TEXT("Mooooo! Welcome to the bull & cow game!"));
     // PrintLine(TEXT("The HiddenWord is: %s"), *HiddenWord);
-    PrintLine(TEXT("Guess the %i letter isogram..."), HiddenWord.Len());
+    PrintLine(TEXT("Guess the %i letter isogram with %i lives."), HiddenWord.Len(), Lives);
     PrintLine(TEXT("Use TAB to access the terminal and then enter some text and press ENTER!"));
 }
 
