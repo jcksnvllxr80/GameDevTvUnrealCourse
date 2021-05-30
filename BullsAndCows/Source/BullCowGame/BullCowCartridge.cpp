@@ -28,7 +28,8 @@ void UBullCowCartridge::OnInput(const FString& Input)  // When the player hits e
 FString UBullCowCartridge::GetRandomIsogram() const
 {
     srand(time(NULL));  // initialize the random seed
-    int RandIndex = rand() % IsogramList.Num();  // generates a random number between 0 and len of IsogramList
+    int32 RandIndex = rand() % IsogramList.Num();  // generates a random number between 0 and len of IsogramList
+    PrintLine(TEXT("The random number is: %i."), RandIndex);
     return IsogramList[RandIndex];
 }
 
