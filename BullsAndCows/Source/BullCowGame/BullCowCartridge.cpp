@@ -42,7 +42,7 @@ void UBullCowCartridge::EndGame()
     PrintLine(TEXT("Press ENTER to play again."));
 }
 
-bool UBullCowCartridge::IsIsogram(FString Word)
+bool UBullCowCartridge::IsIsogram(FString Word) const
 {
     int32 CharFoundAt;
     if (Word.Len() > 1)
