@@ -9,6 +9,7 @@ void UBullCowCartridge::BeginPlay() // When the game starts
     Super::BeginPlay();
     const FString WordListPath = FPaths::ProjectContentDir() / TEXT("WordLists/IsogramList.txt");
     FFileHelper::LoadFileToStringArray(IsogramList, *WordListPath);
+    srand(time(NULL)); // initialize the random seed
     SetupGame();
 }
 
@@ -27,9 +28,8 @@ void UBullCowCartridge::OnInput(const FString& Input)  // When the player hits e
 
 FString UBullCowCartridge::GetRandomIsogram() const
 {
-    srand(time(NULL));  // initialize the random seed
     int32 RandIndex = rand() % IsogramList.Num();  // generates a random number between 0 and len of IsogramList
-    PrintLine(TEXT("The random number is: %i."), RandIndex);
+    PrintLine(TEXT("// The random number is: %i."), RandIndex);
     return IsogramList[RandIndex];
 }
 
@@ -44,7 +44,7 @@ void UBullCowCartridge::SetupGame()
 void UBullCowCartridge::DisplayStartInfo()
 {
     PrintLine(TEXT("Mooooo! Welcome to the bull & cow game!"));
-    PrintLine(TEXT("The HiddenWord is: %s"), *HiddenWord);
+    PrintLine(TEXT("// The HiddenWord is: %s"), *HiddenWord);
     PrintLine(TEXT("Guess the %i letter isogram with %i lives."), HiddenWord.Len(), Lives);
     PrintLine(TEXT("Use TAB to access the terminal and then enter some text and press ENTER!"));
 }
