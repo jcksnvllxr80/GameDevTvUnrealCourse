@@ -2,14 +2,12 @@
 #include "BullCowCartridge.h"
 #include "Misc/FileHelper.h"
 #include "Misc/Paths.h"
-#include <time.h>
 
 void UBullCowCartridge::BeginPlay() // When the game starts
 {
     Super::BeginPlay();
     const FString WordListPath = FPaths::ProjectContentDir() / TEXT("WordLists/IsogramList.txt");
     FFileHelper::LoadFileToStringArray(IsogramList, *WordListPath);
-    srand(time(NULL)); // initialize the random seed
     SetupGame();
 }
 
@@ -28,8 +26,8 @@ void UBullCowCartridge::OnInput(const FString& Input)  // When the player hits e
 
 FString UBullCowCartridge::GetRandomIsogram() const
 {
-    int32 RandIndex = rand() % IsogramList.Num();  // generates a random number between 0 and len of IsogramList
-    PrintLine(TEXT("// The random number is: %i."), RandIndex);
+    int32 RandIndex = FMath::RandRange(0, IsogramList.Num() - 1);  // generates a random number between 0 and len of IsogramList
+    // PrintLine(TEXT("// The random number is: %i."), RandIndex);
     return IsogramList[RandIndex];
 }
 
