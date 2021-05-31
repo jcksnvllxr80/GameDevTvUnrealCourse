@@ -55,7 +55,7 @@ void UBullCowCartridge::EndGame()
     PrintLine(TEXT("Press ENTER to play again."));
 }
 
-bool UBullCowCartridge::IsIsogram(FString Word) const
+bool UBullCowCartridge::IsIsogram(const FString& Word) const
 {
     int32 CharFoundAt;
     if (Word.Len() > 1)
@@ -78,7 +78,7 @@ bool UBullCowCartridge::IsIsogram(FString Word) const
     }
 }
 
-void UBullCowCartridge::ProcessGuess(FString Guess)
+void UBullCowCartridge::ProcessGuess(const FString& Guess)
 {
     PrintLine(TEXT("You entered: ") + Guess);
     if (Guess == HiddenWord)
