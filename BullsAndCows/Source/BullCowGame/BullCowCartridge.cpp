@@ -42,14 +42,12 @@ void UBullCowCartridge::SetupGame()
 void UBullCowCartridge::DisplayStartInfo()
 {
     PrintLine(TEXT("Mooooo! Welcome to the bull & cow game!"));
-    PrintLine(TEXT("You will guess the isogram with number of\nlives equal to the length of the word."));
-    PrintLine(TEXT("You will be given the length of the word on start\nand hints after you guess wrong."));
-    PrintLine(TEXT("The hints are:\n\tBulls: number of correct letters in the correct position"));
-    PrintLine(TEXT("\tCows: number of correct letters but in the incorrect position."));
-    PrintLine(TEXT("Mooooo! Welcome to the bull & cow game!"));
+    PrintLine(TEXT("Guess the isogram given word length."));
+    PrintLine(TEXT("- Bulls: num letters in good spot"));
+    PrintLine(TEXT("- Cows: num good letters in wrong spot"));
     // PrintLine(TEXT("// The HiddenWord is: %s"), *HiddenWord);
     PrintLine(TEXT("Guess the %i letter isogram with %i lives."), HiddenWord.Len(), Lives);
-    PrintLine(TEXT("Use TAB to access the terminal and then enter some text and press ENTER!"));
+    PrintLine(TEXT("Use TAB to access the terminal, then type your guess and press ENTER!"));
 }
 
 void UBullCowCartridge::EndGame()
@@ -122,7 +120,7 @@ FBullCowCount UBullCowCartridge::GetBullCows(const FString &Guess) const
     int32 CharFoundAt;
     for (int32 i = 0; i < Guess.Len(); i++)
     {
-        if (HiddenWord[i] == Guess[i])
+        if (i < HiddenWord.Len() && HiddenWord[i] == Guess[i])
         {
             Count.Bulls++;
         }
