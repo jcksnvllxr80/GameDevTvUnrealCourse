@@ -42,7 +42,12 @@ void UBullCowCartridge::SetupGame()
 void UBullCowCartridge::DisplayStartInfo()
 {
     PrintLine(TEXT("Mooooo! Welcome to the bull & cow game!"));
-    PrintLine(TEXT("// The HiddenWord is: %s"), *HiddenWord);
+    PrintLine(TEXT("You will guess the isogram with number of\nlives equal to the length of the word."));
+    PrintLine(TEXT("You will be given the length of the word on start\nand hints after you guess wrong."));
+    PrintLine(TEXT("The hints are:\n\tBulls: number of correct letters in the correct position"));
+    PrintLine(TEXT("\tCows: number of correct letters but in the incorrect position."));
+    PrintLine(TEXT("Mooooo! Welcome to the bull & cow game!"));
+    // PrintLine(TEXT("// The HiddenWord is: %s"), *HiddenWord);
     PrintLine(TEXT("Guess the %i letter isogram with %i lives."), HiddenWord.Len(), Lives);
     PrintLine(TEXT("Use TAB to access the terminal and then enter some text and press ENTER!"));
 }
