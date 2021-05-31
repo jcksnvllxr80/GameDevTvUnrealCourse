@@ -59,10 +59,10 @@ bool UBullCowCartridge::IsIsogram(const FString& Word) const
     if (Word.Len() > 1)
     {
         FString Substring = Word.RightChop(1);
-        // PrintLine(TEXT("Searching for character %c in substring %s of string %s."), Guess[0], *Substring, *Guess);
+        // PrintLine(TEXT("Searching for character %c in substring %s of string %s."), Word[0], *Substring, *Word);
         if (Substring.FindChar(Word[0], CharFoundAt))
         {
-            // PrintLine(TEXT("Found character %c in substring %s of string %s."), Guess[0], *Substring, *Guess);
+            // PrintLine(TEXT("Found character %c in substring %s of string %s."), Word[0], *Substring, *Word);
             return false;
         }
         else
@@ -90,13 +90,18 @@ void UBullCowCartridge::ProcessGuess(const FString& Guess)
         {
             PrintLine(TEXT("You entered %i characters."), Guess.Len());
         }
-        if (!IsIsogram(Guess))
-        {
-            PrintLine(TEXT("You entered %s, which is not an isogram."), *Guess);
-        }
         PrintLine(TEXT("Wrong! You lost a life!"));
         if (--Lives > 0)
         {
+            if (!IsIsogram(Guess))
+            {
+                PrintLine(TEXT("You entered %s, which is not an isogram."), *Guess);
+            }
+            else
+            {
+                FBullCowCount BullCowCount = GetBullCows(Guess);
+                PrintLine(TEXT("You have %i bulls and %i cows."), BullCowCount.Bulls, BullCowCount.Cows);
+            }
             PrintLine(TEXT("Guess the %i letter isogram with %i lives."), HiddenWord.Len(), Lives);
         }
         else
@@ -104,4 +109,25 @@ void UBullCowCartridge::ProcessGuess(const FString& Guess)
             EndGame();
         }
     }
+}
+
+FBullCowCount UBullCowCartridge::GetBullCows(const FString &Guess) const
+{
+    FBullCowCount Count;
+    int32 CharFoundAt;
+    for (int32 i = 0; i < Guess.Len(); i++)
+    {
+        if (HiddenWord[i] == Guess[i])
+        {
+            Count.Bulls++;
+        }
+        else
+        {
+            if (HiddenWord.FindChar(Guess[i], CharFoundAt))
+            {
+                Count.Cows++;
+            }
+        }
+    }
+    return Count;
 }
