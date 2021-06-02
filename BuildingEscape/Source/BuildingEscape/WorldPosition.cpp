@@ -30,8 +30,11 @@ void UWorldPosition::BeginPlay()
 	// UE_LOG(LogTemp, Display, TEXT("This is a normal log."));
 	// UE_LOG(LogTemp, Warning, TEXT("This is a warning log."));
 	// UE_LOG(LogTemp, Error, TEXT("This is an error log."));
-
-	UE_LOG(LogTemp, Display, TEXT("WorldPosition componenet attached to object: %s"), *GetOwner()->GetName());
+	AActor* PtrOwner = GetOwner();
+	FString OwnerName = PtrOwner->GetName();
+	// UE_LOG(LogTemp, Display, TEXT("WorldPosition componenet attached to object: %s"), *OwnerName);
+	FVector ObjectPosition = PtrOwner->GetActorLocation();
+	UE_LOG(LogTemp, Display, TEXT("WorldPosition of %s is %s."), *OwnerName, *ObjectPosition.ToString());
 }
 
 
