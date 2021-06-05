@@ -29,6 +29,7 @@ UPROPERTY(EditAnywhere)
 float TargetYaw = 90.f;
 FRotator ObjRotation;
 AActor* OwningObj;
+
 UPROPERTY(EditAnywhere)
 ATriggerVolume* PressurePlate;
 };
