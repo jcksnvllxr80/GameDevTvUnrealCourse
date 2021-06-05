@@ -3,6 +3,8 @@
 
 #include "OpenDoor.h"
 #include "GameFramework/Actor.h"
+#include "GameFramework/WorldSettings.h"
+#include "GameFramework/PlayerController.h"
 
 // Sets default values for this component's properties
 UOpenDoor::UOpenDoor()
@@ -19,9 +21,16 @@ UOpenDoor::UOpenDoor()
 void UOpenDoor::BeginPlay()
 {
 	Super::BeginPlay();
+	ActorThatOpens = GetWorld()->GetFirstPlayerController()->GetPawn();
 	OwningObj = GetOwner();
 	ObjRotation = OwningObj->GetActorRotation();
-	TargetYaw += ObjRotation.Yaw;
+	CloseYaw = ObjRotation.Yaw;
+	OpenYaw += ObjRotation.Yaw;
+
+	if (!PressurePlate)
+	{
+		UE_LOG(LogTemp, Error, TEXT("%s's Pressure Plate is not set!"), *OwningObj->GetName());
+	}
 }
 
 
@@ -29,19 +38,39 @@ void UOpenDoor::BeginPlay()
 void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-	UE_LOG(LogTemp, Display, TEXT("%s's rotation is %s"), *OwningObj->GetName(), *ObjRotation.ToString());
-	UE_LOG(LogTemp, Display, TEXT("%s's yaw is %f"), *OwningObj->GetName(), TargetYaw);
-
-	OwningObj->SetActorRotation({
-		ObjRotation.Pitch, 
-		FMath::Lerp(OwningObj->GetActorRotation().Yaw, TargetYaw, DeltaTime * 1.33f), 
-		ObjRotation.Roll
-	});
-	// float OpenDoorYaw = -90.f;
-	// FRotator CurrentRoatation = GetOwner()->GetActorRotation();
-	// FRotator OpenDoor = {0.f, OpenDoorYaw, 0.f};
-	// FRotator OpenDoor(0.f, OpenDoorYaw, 0.f);
-	// GetOwner()->SetActorRotation(OpenDoor);
-	// GetOwner()->SetActorRotation(CurrentRoatation.Add(0.f, OpenDoorYaw, 0.f));
+	if (PressurePlate)
+	{
+		if (PressurePlate->IsOverlappingActor(ActorThatOpens))
+		{
+			OpenDoor(DeltaTime);
+		}
+		else
+		{
+			CloseDoor(DeltaTime);
+		}
+	}
 }
 
+void UOpenDoor::OpenDoor(float DeltaT)
+{
+	// UE_LOG(LogTemp, Display, TEXT("%s's rotation is %s"), *OwningObj->GetName(), *ObjRotation.ToString());
+	// UE_LOG(LogTemp, Display, TEXT("%s's yaw is %f"), *OwningObj->GetName(), OpenYaw);
+	ObjRotation = OwningObj->GetActorRotation();
+	OwningObj->SetActorRotation({
+		ObjRotation.Pitch, 
+		FMath::Lerp(ObjRotation.Yaw, OpenYaw, DeltaT * 1.33f), 
+		ObjRotation.Roll
+	});
+}
+
+void UOpenDoor::CloseDoor(float DeltaT)
+{
+	// UE_LOG(LogTemp, Display, TEXT("%s's rotation is %s"), *OwningObj->GetName(), *ObjRotation.ToString());
+	// UE_LOG(LogTemp, Display, TEXT("%s's yaw is %f"), *OwningObj->GetName(), OpenYaw);
+	ObjRotation = OwningObj->GetActorRotation();
+	OwningObj->SetActorRotation({
+		ObjRotation.Pitch, 
+		FMath::Lerp(ObjRotation.Yaw, CloseYaw, DeltaT * 1.33f), 
+		ObjRotation.Roll
+	});
+}
