@@ -1,7 +1,10 @@
 // Copyright Aaron Watkins 2021
 
-
+#include "DrawDebugHelpers.h"
+#include "GameFramework/PlayerController.h"
+#include "GameFramework/WorldSettings.h"
 #include "Grabber1.h"
+#define OUT 
 
 // Sets default values for this component's properties
 UGrabber1::UGrabber1()
@@ -29,6 +32,21 @@ void UGrabber1::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	// ...
-}
+	FVector PlayerViewPointLocation;
+	FRotator PlayerViewPointRotation;
+	GetWorld()->GetFirstPlayerController()->GetPlayerViewPoint(
+		OUT PlayerViewPointLocation, 
+		OUT PlayerViewPointRotation
+	);
+
+	// UE_LOG(LogTemp, Display, TEXT("Player viewpoint Location: %s; Rotation: %s."), 
+	// 	*PlayerViewPointLocation.ToString(),
+	// 	*PlayerViewPointRotation.ToString()
+	// );
+	// draw a line from player showing the reach
+	FVector LineTraceEnd = PlayerViewPointLocation + PlayerViewPointRotation.Vector() * PlayerReach;
+	DrawDebugLine(GetWorld(), PlayerViewPointLocation, LineTraceEnd, FColor(0, 0, 255), false, 0.f, 0, 5.f);
+	// ray-cast out to a certain distance
+	// see what we are hitting
+ }
 
