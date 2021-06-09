@@ -3,6 +3,7 @@
 #include "DrawDebugHelpers.h"
 #include "GameFramework/PlayerController.h"
 #include "GameFramework/WorldSettings.h"
+#include "CollisionQueryParams.h"
 #include "Grabber1.h"
 #define OUT 
 
@@ -45,8 +46,23 @@ void UGrabber1::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 	// );
 	// draw a line from player showing the reach
 	FVector LineTraceEnd = PlayerViewPointLocation + PlayerViewPointRotation.Vector() * PlayerReach;
-	DrawDebugLine(GetWorld(), PlayerViewPointLocation, LineTraceEnd, FColor(0, 0, 255), false, 0.f, 0, 5.f);
+	DrawDebugLine(
+		GetWorld(), PlayerViewPointLocation, LineTraceEnd, FColor(0, 0, 255), false, 0.f, 0, 5.f
+	);
 	// ray-cast out to a certain distance
+	FHitResult Hit;
+	FCollisionQueryParams TraceParams(FName(TEXT("")), false, GetOwner());
+	GetWorld()->LineTraceSingleByObjectType(
+		OUT Hit,
+		PlayerViewPointLocation,
+		LineTraceEnd,
+		FCollisionObjectQueryParams(ECollisionChannel::ECC_PhysicsBody),
+		TraceParams
+	);
 	// see what we are hitting
+	if (Hit.GetActor())
+	{
+		UE_LOG(LogTemp, Display, TEXT("DebugLine has hit %s."), *Hit.GetActor()->GetName());
+	}
  }
 
