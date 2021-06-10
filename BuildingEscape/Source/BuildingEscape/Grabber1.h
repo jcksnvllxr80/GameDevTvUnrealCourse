@@ -3,9 +3,9 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "PhysicsEngine/PhysicsHandleComponent.h"
 #include "Components/ActorComponent.h"
 #include "Grabber1.generated.h"
-
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class BUILDINGESCAPE_API UGrabber1 : public UActorComponent
@@ -27,5 +27,6 @@ public:
 private:
 	UPROPERTY(EditAnywhere)
 	float PlayerReach = 100.f;
-		
+
+	UPhysicsHandleComponent* PhysicsHandle = nullptr;
 };

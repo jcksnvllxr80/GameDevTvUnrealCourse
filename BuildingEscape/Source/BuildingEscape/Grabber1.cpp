@@ -22,9 +22,18 @@ UGrabber1::UGrabber1()
 void UGrabber1::BeginPlay()
 {
 	Super::BeginPlay();
-	UE_LOG(LogTemp, Display, TEXT("Grabber reporting for duty"));
+	// UE_LOG(LogTemp, Display, TEXT("Grabber reporting for duty"));
 	// ...
-	
+	PhysicsHandle = GetOwner()->FindComponentByClass<UPhysicsHandleComponent>();
+	if (!PhysicsHandle)
+	{
+		UE_LOG(
+			LogTemp, 
+			Error, 
+			TEXT("%s has no physics handle component to be found."), 
+			*GetOwner()->GetName()
+		);
+	}
 }
 
 
