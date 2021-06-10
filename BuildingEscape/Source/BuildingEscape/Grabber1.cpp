@@ -45,7 +45,7 @@ void UGrabber1::BeginPlay()
 				*GetOwner()->GetName()
 		);
 		InputComponent->BindAction("Grab", IE_Pressed, this, &UGrabber1::Grab);
-		InputComponent->BindAction("Release", IE_Released, this, &UGrabber1::Release);
+		InputComponent->BindAction("Grab", IE_Released, this, &UGrabber1::Release);
 	}
 }
 
