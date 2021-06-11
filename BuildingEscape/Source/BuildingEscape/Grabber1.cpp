@@ -79,6 +79,28 @@ void UGrabber1::Grab()
 }
 
 
+FVector UGrabber1::GetPlayerReachPosition() const
+{
+	FVector PlayerVPLoc;
+	FRotator PlayerVPRot;
+	GetWorld()->GetFirstPlayerController()->GetPlayerViewPoint(
+		OUT PlayerVPLoc,
+		OUT PlayerVPRot
+	);
+	// draw a line from player showing the reach
+	return PlayerVPLoc + PlayerVPRot.Vector() * PlayerReach;
+}
+
+
+FVector UGrabber1::GetPlayerWorldPosition() const
+{
+	FVector PlayerVPLoc;
+	FRotator PlayerVPRot;
+	GetWorld()->GetFirstPlayerController()->GetPlayerViewPoint(OUT PlayerVPLoc, OUT PlayerVPRot);
+	return PlayerVPLoc;
+}
+
+
 void UGrabber1::Release()
 {
 	UE_LOG(LogTemp, Display, TEXT("Grabber released"));
@@ -91,25 +113,17 @@ void UGrabber1::Release()
 
 FHitResult UGrabber1::GetFirstPhysicsBodyInReach() const
 {
-	FVector PlayerViewPointLocation;
-	FRotator PlayerViewPointRotation;
-	GetWorld()->GetFirstPlayerController()->GetPlayerViewPoint(
-		OUT PlayerViewPointLocation,
-		OUT PlayerViewPointRotation
-	);
-
-	// draw a line from player showing the reach
-	FVector LineTraceEnd = PlayerViewPointLocation + PlayerViewPointRotation.Vector() * PlayerReach;
 	// DrawDebugLine(
 	// 	GetWorld(), PlayerViewPointLocation, LineTraceEnd, FColor(0, 0, 255), false, 0.f, 0, 5.f
 	// );
+
 	// ray-cast out to a certain distance
 	FHitResult Hit;
 	FCollisionQueryParams TraceParams(FName(TEXT("")), false, GetOwner());
 	GetWorld()->LineTraceSingleByObjectType(
 		OUT Hit,
-		PlayerViewPointLocation,
-		LineTraceEnd,
+		GetPlayerWorldPosition(),
+		GetPlayerReachPosition(),
 		FCollisionObjectQueryParams(ECollisionChannel::ECC_PhysicsBody),
 		TraceParams
 	);
@@ -123,15 +137,7 @@ void UGrabber1::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 	if (PhysicsHandle->GrabbedComponent)
 	{
-		FVector PlayerViewPointLocation;
-		FRotator PlayerViewPointRotation;
-		GetWorld()->GetFirstPlayerController()->GetPlayerViewPoint(
-				OUT PlayerViewPointLocation,
-				OUT PlayerViewPointRotation);
-
-		// draw a line from player showing the reach
-		FVector LineTraceEnd = PlayerViewPointLocation + PlayerViewPointRotation.Vector() * PlayerReach;
-		PhysicsHandle->SetTargetLocation(LineTraceEnd);
+		PhysicsHandle->SetTargetLocation(GetPlayerReachPosition());
 	}
 }
 
