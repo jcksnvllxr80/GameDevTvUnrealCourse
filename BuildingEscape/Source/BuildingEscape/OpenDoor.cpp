@@ -23,7 +23,6 @@ UOpenDoor::UOpenDoor()
 void UOpenDoor::BeginPlay()
 {
 	Super::BeginPlay();
-	ActorThatOpens = GetWorld()->GetFirstPlayerController()->GetPawn();
 	OwningObj = GetOwner();
 	ObjRotation = OwningObj->GetActorRotation();
 	CloseYaw = ObjRotation.Yaw;
@@ -79,10 +78,13 @@ float UOpenDoor::TotalActorMass() const
 {
 	float TotalMass = 0.f;
 	TArray<AActor*> OverlappingActors;
-	PressurePlate->GetOverlappingActors(OUT OverlappingActors);
-	for (AActor* OverlappingActor : OverlappingActors) 
+	if (PressurePlate)
 	{
-		TotalMass += OverlappingActor->FindComponentByClass<UPrimitiveComponent>()->GetMass();
+		PressurePlate->GetOverlappingActors(OUT OverlappingActors);
+		for (AActor *OverlappingActor : OverlappingActors)
+		{
+			TotalMass += OverlappingActor->FindComponentByClass<UPrimitiveComponent>()->GetMass();
+		}
 	}
 	return TotalMass;
 }

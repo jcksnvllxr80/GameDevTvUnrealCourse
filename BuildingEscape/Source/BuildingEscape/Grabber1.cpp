@@ -63,7 +63,7 @@ void UGrabber1::Grab()
 	FHitResult HitResult = GetFirstPhysicsBodyInReach();
 	// see what we are hitting
 	AActor *ActorHit = HitResult.GetActor();
-	if (ActorHit)
+	if (ActorHit && PhysicsHandle)
 	{
 		UE_LOG(LogTemp, Display, TEXT("Line trace has hit %s."), *ActorHit->GetName());
 		PhysicsHandle->GrabComponentAtLocation(
@@ -104,7 +104,7 @@ FVector UGrabber1::GetPlayerWorldPosition() const
 void UGrabber1::Release()
 {
 	UE_LOG(LogTemp, Display, TEXT("Grabber released"));
-	if (PhysicsHandle->GrabbedComponent)
+	if (PhysicsHandle && PhysicsHandle->GrabbedComponent)
 	{
 		PhysicsHandle->ReleaseComponent();
 	}

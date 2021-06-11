@@ -32,7 +32,7 @@ private:
 	float OpenYaw = 90.f;
 	float CloseYaw;
 	FRotator ObjRotation;
-	AActor* OwningObj;
+	AActor *OwningObj = nullptr;
 	float DoorLastOpened = 0.f;
 	UPROPERTY(EditAnywhere)
 	float MassToOpenDoor = 50.f;
@@ -41,10 +41,7 @@ private:
 	float DoorClosedDelay = 0.3f;
 
 	UPROPERTY(EditAnywhere)
-	ATriggerVolume* PressurePlate;
-
-	UPROPERTY(EditAnywhere)
-	AActor* ActorThatOpens;
+	ATriggerVolume* PressurePlate = nullptr;
 
 	UPROPERTY(EditAnywhere)
 	float DoorCloseSpeed = 1.33f;
