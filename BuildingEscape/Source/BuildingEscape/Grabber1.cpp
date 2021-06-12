@@ -15,7 +15,6 @@ UGrabber1::UGrabber1()
 	PrimaryComponentTick.bCanEverTick = true;
 }
 
-
 void UGrabber1::FindPhysicsHandle()
 {
 	PhysicsHandle = GetOwner()->FindComponentByClass<UPhysicsHandleComponent>();
@@ -29,7 +28,6 @@ void UGrabber1::FindPhysicsHandle()
 		);
 	}
 }
-
 
 void UGrabber1::FindInputComponent()
 {
@@ -47,7 +45,6 @@ void UGrabber1::FindInputComponent()
 	}
 }
 
-
 // Called when the game starts
 void UGrabber1::BeginPlay()
 {
@@ -55,7 +52,6 @@ void UGrabber1::BeginPlay()
 	FindPhysicsHandle();
 	FindInputComponent();
 }
-
 
 void UGrabber1::Grab()
 {
@@ -78,7 +74,6 @@ void UGrabber1::Grab()
 	}
 }
 
-
 FVector UGrabber1::GetPlayerReachPosition() const
 {
 	FVector PlayerVPLoc;
@@ -91,7 +86,6 @@ FVector UGrabber1::GetPlayerReachPosition() const
 	return PlayerVPLoc + PlayerVPRot.Vector() * PlayerReach;
 }
 
-
 FVector UGrabber1::GetPlayerWorldPosition() const
 {
 	FVector PlayerVPLoc;
@@ -99,7 +93,6 @@ FVector UGrabber1::GetPlayerWorldPosition() const
 	GetWorld()->GetFirstPlayerController()->GetPlayerViewPoint(OUT PlayerVPLoc, OUT PlayerVPRot);
 	return PlayerVPLoc;
 }
-
 
 void UGrabber1::Release()
 {
@@ -109,7 +102,6 @@ void UGrabber1::Release()
 		PhysicsHandle->ReleaseComponent();
 	}
 }
-
 
 FHitResult UGrabber1::GetFirstPhysicsBodyInReach() const
 {
@@ -129,7 +121,6 @@ FHitResult UGrabber1::GetFirstPhysicsBodyInReach() const
 	);
 	return Hit;
 }
-
 
 // Called every frame
 void UGrabber1::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction)
