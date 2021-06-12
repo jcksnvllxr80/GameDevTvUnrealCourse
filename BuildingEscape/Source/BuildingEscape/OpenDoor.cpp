@@ -93,7 +93,7 @@ void UOpenDoor::FindAudioComponent()
 	}
 }
 
-void UOperDoor::ValidatePressurePlate() const
+void UOpenDoor::ValidatePressurePlate() const
 {
 	if (!PressurePlate)
 	{

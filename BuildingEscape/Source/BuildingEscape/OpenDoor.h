@@ -35,7 +35,7 @@ public:
 	FRotator ObjRotation;
 	AActor *OwningObj = nullptr;
 	bool DoorOpenedAudioPlayed = false;
-	bool DoorClosedAudioPlayed = false;
+	bool DoorClosedAudioPlayed = true;
 	float DoorLastOpened = 0.f;
 	UPROPERTY(EditAnywhere)
 	float MassToOpenDoor = 50.f;
