@@ -29,10 +29,7 @@ void UOpenDoor::BeginPlay()
 	CloseYaw = ObjRotation.Yaw;
 	OpenYaw += ObjRotation.Yaw;
 
-	if (!PressurePlate)
-	{
-		UE_LOG(LogTemp, Error, TEXT("%s's Pressure Plate is not set!"), *OwningObj->GetName());
-	}
+	ValidatePressurePlate();
 	FindAudioComponent();
 }
 
@@ -93,6 +90,14 @@ void UOpenDoor::FindAudioComponent()
 			TEXT("%s has no audio component to be found."),
 			*GetOwner()->GetName()
 		);
+	}
+}
+
+void UOperDoor::ValidatePressurePlate() const
+{
+	if (!PressurePlate)
+	{
+		UE_LOG(LogTemp, Error, TEXT("%s's Pressure Plate is not set!"), *OwningObj->GetName());
 	}
 }
 

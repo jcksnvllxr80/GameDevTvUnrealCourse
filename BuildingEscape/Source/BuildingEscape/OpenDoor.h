@@ -28,10 +28,9 @@ public:
 	float TotalActorMass() const;
 	void FindAudioComponent();
 	void PlayAudioComponent(bool HasAlreadyBeenPlayed) const;
+	void ValidatePressurePlate() const;
 
-private:
-	UPROPERTY(EditAnywhere)
-	float OpenYaw = 90.f;
+			private : UPROPERTY(EditAnywhere) float OpenYaw = 90.f;
 	float CloseYaw;
 	FRotator ObjRotation;
 	AActor *OwningObj = nullptr;
