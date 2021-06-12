@@ -26,6 +26,8 @@ public:
 	void OpenDoor(float DeltaT);
 	void CloseDoor(float DeltaT);
 	float TotalActorMass() const;
+	void FindAudioComponent();
+	void PlayAudioComponent(bool HasAlreadyBeenPlayed) const;
 
 private:
 	UPROPERTY(EditAnywhere)
@@ -33,6 +35,8 @@ private:
 	float CloseYaw;
 	FRotator ObjRotation;
 	AActor *OwningObj = nullptr;
+	bool DoorOpenedAudioPlayed = false;
+	bool DoorClosedAudioPlayed = false;
 	float DoorLastOpened = 0.f;
 	UPROPERTY(EditAnywhere)
 	float MassToOpenDoor = 50.f;
@@ -48,4 +52,7 @@ private:
 
 	UPROPERTY(EditAnywhere)
 	float DoorOpenSpeed = 1.33f;
+
+	UPROPERTY()
+	UAudioComponent* AudioComponent = nullptr;
 };

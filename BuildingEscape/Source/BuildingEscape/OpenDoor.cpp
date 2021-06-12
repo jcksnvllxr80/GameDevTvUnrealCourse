@@ -4,6 +4,7 @@
 #include "OpenDoor.h"
 #include "GameFramework/Actor.h"
 #include "GameFramework/WorldSettings.h"
+#include "Components/AudioComponent.h"
 #include "Components/PrimitiveComponent.h"
 #include "GameFramework/PlayerController.h"
 #define OUT 
@@ -32,6 +33,7 @@ void UOpenDoor::BeginPlay()
 	{
 		UE_LOG(LogTemp, Error, TEXT("%s's Pressure Plate is not set!"), *OwningObj->GetName());
 	}
+	FindAudioComponent();
 }
 
 
@@ -41,11 +43,17 @@ void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 	if (TotalActorMass() > MassToOpenDoor)
 	{
+		PlayAudioComponent(DoorOpenedAudioPlayed);
+		DoorOpenedAudioPlayed = true;
+		DoorClosedAudioPlayed = false;
 		OpenDoor(DeltaTime);
 		DoorLastOpened = GetWorld()->GetTimeSeconds();
 	}
 	else if (GetWorld()->GetTimeSeconds() - DoorLastOpened > DoorClosedDelay)
 	{
+		PlayAudioComponent(DoorClosedAudioPlayed);
+		DoorClosedAudioPlayed = true;
+		DoorOpenedAudioPlayed = false;
 		CloseDoor(DeltaTime);
 	}
 }
@@ -72,6 +80,29 @@ void UOpenDoor::CloseDoor(float DeltaT)
 		FMath::Lerp(ObjRotation.Yaw, CloseYaw, DeltaT * DoorCloseSpeed), 
 		ObjRotation.Roll
 	});
+}
+
+void UOpenDoor::FindAudioComponent()
+{
+	AudioComponent = GetOwner()->FindComponentByClass<UAudioComponent>();
+	if (!AudioComponent)
+	{
+		UE_LOG(
+			LogTemp,
+			Error,
+			TEXT("%s has no audio component to be found."),
+			*GetOwner()->GetName()
+		);
+	}
+}
+
+void UOpenDoor::PlayAudioComponent(bool AudioHasAlreadyBeenPlayed) const
+{
+	if (AudioComponent && !AudioHasAlreadyBeenPlayed)
+	{
+		UE_LOG(LogTemp, Display, TEXT("Playing door audio."));
+		AudioComponent->Play();
+	}
 }
 
 float UOpenDoor::TotalActorMass() const
