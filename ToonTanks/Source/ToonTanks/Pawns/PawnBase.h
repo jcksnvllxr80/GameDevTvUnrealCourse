@@ -29,9 +29,9 @@ public:
 
 protected:
 
-	void RotateTurrent(FVector LookAtTarget) const;
+	void RotateTurret(FVector LookAtTarget);
 
-	void Fire() const;
+	void Fire();
 
 	virtual void HandleDestruction();
 };

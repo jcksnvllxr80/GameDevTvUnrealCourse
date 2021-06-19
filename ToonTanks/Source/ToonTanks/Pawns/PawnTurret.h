@@ -20,9 +20,9 @@ private:
 	float FireRange = 500.f;
 	FTimerHandle FireRateTimerHandle;
 	APawnTank* PlayerPawn;
-	float ReturnDistanceToPlayer() const;
-	void CheckFireCondition() const;
-	bool PlayerInFireRange() const;
+	float ReturnDistanceToPlayer();
+	void CheckFireCondition();
+	bool PlayerInFireRange();
 
 	
 public:
@@ -32,5 +32,7 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	virtual void HandleDestruction() override;
 
 };
