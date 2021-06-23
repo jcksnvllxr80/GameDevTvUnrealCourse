@@ -15,7 +15,7 @@ void ATankGameModeBase::BeginPlay()
 
 void ATankGameModeBase::ActorDied(AActor* DeadActor)
 {
-	UE_LOG(LogTemp, Display, TEXT("%s pawn died!", *GetOwner().ToString()));
+	UE_LOG(LogTemp, Display, TEXT("A pawn has died!"));
 	if (DeadActor == PlayerTank)
 	{
 		PlayerTank->HandleDestruction();
