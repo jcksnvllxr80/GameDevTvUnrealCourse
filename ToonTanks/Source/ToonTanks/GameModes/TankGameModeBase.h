@@ -27,8 +27,10 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
-	UFUNCTION(BlueprintIMplementableEvent)
+	UFUNCTION(BlueprintImplementableEvent)
 	void GameStart();
-	UFUNCTION(BlueprintIMplementableEvent)
+	UFUNCTION(BlueprintImplementableEvent)
 	void GameOver(bool PlayerWon);
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Game Loop")
+	int32 StartDelay = 3;
 };
