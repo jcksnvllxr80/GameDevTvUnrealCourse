@@ -35,7 +35,7 @@ bool APawnTurret::PlayerInFireRange()
 
 void APawnTurret::CheckFireCondition()
 {
-	if (!PlayerPawn)
+	if (!(PlayerPawn && PlayerPawn->GetIsPlayerAlive()))
 	{
 		return;
 	}

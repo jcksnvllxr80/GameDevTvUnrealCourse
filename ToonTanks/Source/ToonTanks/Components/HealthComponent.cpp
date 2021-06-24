@@ -20,7 +20,6 @@ UHealthComponent::UHealthComponent()
 void UHealthComponent::BeginPlay()
 {
 	Super::BeginPlay();
-
 	Health = DefaultHealth;
 	GameModeRef = Cast<ATankGameModeBase>(UGameplayStatics::GetGameMode(GetWorld()));
 	GetOwner()->OnTakeAnyDamage.AddDynamic(this, &UHealthComponent::TakeDamage);
@@ -29,12 +28,14 @@ void UHealthComponent::BeginPlay()
 
 void UHealthComponent::TakeDamage(AActor* DamageActor, float Damage, const UDamageType* DamageType, AController* InstigatedBy, AActor* DamageCauser)
 {
+	
 	if (Damage == 0 || Health <= 0)
 	{
 		return;
 	}
 
 	Health = FMath::Clamp(Health - Damage, 0.f, DefaultHealth);
+	UE_LOG(LogTemp, Display, TEXT("%s's health, after %0.2f damage is taken, is %0.2f!"), *DamageActor->GetName(), Damage, Health);
 
 	if (Health <= 0)
 	{
@@ -44,10 +45,7 @@ void UHealthComponent::TakeDamage(AActor* DamageActor, float Damage, const UDama
 		}
 		else
 		{
-			UE_LOG(LogTemp, Display, TEXT("Health component has no reference to GameMode!"));
+			UE_LOG(LogTemp, Warning, TEXT("Health component has no reference to GameMode!"));
 		}
 	}
 }
-
-
-
