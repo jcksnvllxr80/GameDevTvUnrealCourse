@@ -29,4 +29,9 @@ public:
 private:
 	void MoveForward(float AxisValue);
 	void MoveRight(float AxisValue);
+	void GamePadLookUp(float AxisValue);
+	void GamePadLookRight(float AxisValue);
+
+	UPROPERTY(EditAnywhere)
+	float RotationRate = 100;
 };
