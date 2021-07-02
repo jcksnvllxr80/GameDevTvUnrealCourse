@@ -32,8 +32,16 @@ void AGun::PullTrigger()
 	FRotator PlayerViewpointRot;
 	OwnerController->GetPlayerViewPoint(PlayerViewpointLoc, PlayerViewpointRot);
 
-	DrawDebugCamera(GetWorld(), PlayerViewpointLoc, PlayerViewpointRot, 90, 2, FColor::Red, true);
-	//UE_LOG(LogTemp, Display, TEXT("Gun was fired!"))
+	FVector End = PlayerViewpointLoc + PlayerViewpointRot.Vector() * MaxRange;
+
+	FHitResult Hit;
+	bool bSuccess = GetWorld()->LineTraceSingleByChannel(Hit, PlayerViewpointLoc, End, ECollisionChannel::ECC_GameTraceChannel1);
+	if (bSuccess)
+	{
+		DrawDebugPoint(GetWorld(), Hit.Location, 10, FColor::Red, true);
+		UE_LOG(LogTemp, Display, TEXT("Success, there was a hit!"));
+	}
+	//DrawDebugCamera(GetWorld(), PlayerViewpointLoc, PlayerViewpointRot, 90, 2, FColor::Red, true);
 }
 
 // Called when the game starts or when spawned
