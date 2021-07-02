@@ -38,8 +38,10 @@ void AGun::PullTrigger()
 	bool bSuccess = GetWorld()->LineTraceSingleByChannel(Hit, PlayerViewpointLoc, End, ECollisionChannel::ECC_GameTraceChannel1);
 	if (bSuccess)
 	{
-		DrawDebugPoint(GetWorld(), Hit.Location, 10, FColor::Red, true);
-		UE_LOG(LogTemp, Display, TEXT("Success, there was a hit!"));
+		//DrawDebugPoint(GetWorld(), Hit.Location, 10, FColor::Red, true);
+		//UE_LOG(LogTemp, Display, TEXT("Success, there was a hit!"));
+		FVector ShotDirection = -PlayerViewpointRot.Vector();
+		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ImpactEffect, Hit.Location, ShotDirection.Rotation());
 	}
 	//DrawDebugCamera(GetWorld(), PlayerViewpointLoc, PlayerViewpointRot, 90, 2, FColor::Red, true);
 }
