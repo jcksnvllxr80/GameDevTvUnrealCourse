@@ -42,6 +42,12 @@ void AGun::PullTrigger()
 		//UE_LOG(LogTemp, Display, TEXT("Success, there was a hit!"));
 		FVector ShotDirection = -PlayerViewpointRot.Vector();
 		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ImpactEffect, Hit.Location, ShotDirection.Rotation());
+		AActor* ActorHit = Hit.GetActor();
+		if(ActorHit)
+		{
+			FPointDamageEvent DamageEvent(Damage, Hit, ShotDirection, nullptr);
+			ActorHit->TakeDamage(Damage, DamageEvent, OwnerController, this);
+		}
 	}
 	//DrawDebugCamera(GetWorld(), PlayerViewpointLoc, PlayerViewpointRot, 90, 2, FColor::Red, true);
 }
