@@ -32,6 +32,8 @@ void AGun::PullTrigger()
 	FRotator PlayerViewpointRot;
 	OwnerController->GetPlayerViewPoint(PlayerViewpointLoc, PlayerViewpointRot);
 
+	UGameplayStatics::PlaySoundAtLocation(GetWorld(), ShotSound, PlayerViewpointLoc);
+
 	FVector End = PlayerViewpointLoc + PlayerViewpointRot.Vector() * MaxRange;
 
 	FHitResult Hit;
