@@ -8,6 +8,10 @@
 {
 	 Super::BeginPlay();
 	 PlayerPawn = UGameplayStatics::GetPlayerPawn(GetWorld(), 0);
+	 if (AIBehavior)
+	 {
+		 RunBehaviorTree(AIBehavior);
+	 }
 }
 
 void AShooterAIController::Tick(float DeltaTime)
