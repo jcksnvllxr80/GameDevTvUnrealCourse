@@ -5,6 +5,7 @@
 #include "Gun.h"
 #include "Math/UnrealMathUtility.h"
 #include "Components\CapsuleComponent.h"
+#include "SimpleShooterGameModeBase.h"
 
 // Sets default values
 AShooterCharacter::AShooterCharacter()
@@ -56,13 +57,21 @@ void AShooterCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 float AShooterCharacter::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
 {
 	float DamageApplied = Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
-	Health = FMath::Clamp(Health -= DamageApplied, 0.f, MaxHealth);
-	UE_LOG(LogTemp, Display, TEXT("Health is %f."), Health);
-
-	if (IsDead())
+	if (!IsDead())
 	{
-		DetachFromControllerPendingDestroy();
-		GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+		Health = FMath::Clamp(Health -= DamageApplied, 0.f, MaxHealth);
+		UE_LOG(LogTemp, Display, TEXT("%s's Health is %f."), *GetName(), Health);
+
+		if (IsDead())
+		{
+			ASimpleShooterGameModeBase* GameMode = GetWorld()->GetAuthGameMode<ASimpleShooterGameModeBase>();
+			if (GameMode)
+			{
+				GameMode->PawnKilled(this);
+			}
+			DetachFromControllerPendingDestroy();
+			GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+		}
 	}
 	return DamageApplied;
 }
