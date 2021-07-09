@@ -21,6 +21,7 @@ AGun::AGun()
 void AGun::PullTrigger()
 {
 	UGameplayStatics::SpawnEmitterAttached(MuzzleFlash, Mesh, TEXT("MuzzleFlashSocket"));
+	UGameplayStatics::SpawnSoundAttached(MuzzleSound, Mesh, TEXT("MuzzleFlashSocket"));
 	AController* OwnerController = GetOwnerController();
 	if (!OwnerController) return;
 	FHitResult Hit;
@@ -31,6 +32,7 @@ void AGun::PullTrigger()
 		//DrawDebugPoint(GetWorld(), Hit.Location, 10, FColor::Red, true);
 		//UE_LOG(LogTemp, Display, TEXT("Success, there was a hit!"));
 		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ImpactEffect, Hit.Location, ShotDirection.Rotation());
+		UGameplayStatics::PlaySoundAtLocation(GetWorld(), ImpactSound, Hit.Location);
 		AActor* ActorHit = Hit.GetActor();
 		if(ActorHit)
 		{
@@ -66,7 +68,6 @@ bool AGun::GunTrace(FHitResult& Hit, FVector& ShotDirection) const
 	OwnerController->GetPlayerViewPoint(PlayerViewpointLoc, PlayerViewpointRot);
 	ShotDirection = -PlayerViewpointRot.Vector();
 
-	UGameplayStatics::PlaySoundAtLocation(GetWorld(), ShotSound, PlayerViewpointLoc);
 	const FVector End = PlayerViewpointLoc + PlayerViewpointRot.Vector() * MaxRange;
 
 	FCollisionQueryParams Params;
