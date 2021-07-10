@@ -5,6 +5,16 @@
 #include "TimerManager.h"
 #include "Blueprint/UserWidget.h"
 
+void AShooterPlayerController::BeginPlay()
+{
+	Super::BeginPlay();
+	UUserWidget* Crosshair = CreateWidget(this, CrosshairClass);
+	if (Crosshair)
+	{
+		Crosshair->AddToViewport();
+	}
+}
+
 void AShooterPlayerController::GameHasEnded(class AActor* EndGameFocus, bool bIsWinner)
 {
 	Super::GameHasEnded(EndGameFocus, bIsWinner);
