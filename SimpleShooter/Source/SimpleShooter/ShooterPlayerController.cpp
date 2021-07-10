@@ -8,19 +8,19 @@
 void AShooterPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
-	Crosshair = CreateWidget(this, CrosshairClass);
-	if (Crosshair)
+	HeadsUpDisplay = CreateWidget(this, CrosshairClass);
+	if (HeadsUpDisplay)
 	{
-		Crosshair->AddToViewport();
+		HeadsUpDisplay->AddToViewport();
 	}
 }
 
 void AShooterPlayerController::GameHasEnded(class AActor* EndGameFocus, bool bIsWinner)
 {
 	Super::GameHasEnded(EndGameFocus, bIsWinner);
-	if (Crosshair)
+	if (HeadsUpDisplay)
 	{
-		Crosshair->RemoveFromViewport();
+		HeadsUpDisplay->RemoveFromViewport();
 	}
 	
 	if (bIsWinner)

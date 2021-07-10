@@ -33,5 +33,5 @@ private:
 	FTimerHandle RestartTimer;
 
 	UPROPERTY()
-	UUserWidget* Crosshair;
+	UUserWidget* HeadsUpDisplay;
 };
